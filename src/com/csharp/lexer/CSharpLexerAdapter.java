@@ -21,6 +21,6 @@ import com.intellij.lexer.FlexLexer;
 
 public class CSharpLexerAdapter extends FlexAdapter {
     public CSharpLexerAdapter() {
-        super(new CSharpLexer(null));
+        super(new _CSharpLexer(null));
     }
 }
