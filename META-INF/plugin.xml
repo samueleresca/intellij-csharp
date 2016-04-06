@@ -1,0 +1,49 @@
+<idea-plugin version="2">
+  <id>org.antlr.jetbrains.csharp</id>
+  <name>intellij-csharp</name>
+  <version>0.1</version>
+  <vendor email="samuele.resca@gmail.com" url="https://samueleresca.net">C# language on JetBrains IDEs</vendor>
+  <depends>com.intellij.modules.lang</depends>
+  <description><![CDATA[
+  <p>Intellij C#</p>
+   <p></p>
+   <ul>
+    <li>C# language support;</li>
+       <li>Razor & CsHtml framework support;</li>
+   </ul>
+<a href="https://github.com/samueleresca/intellij-csharp">Github source</a>
+  ]]></description>
+
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+    <fileTypeFactory  implementation="com.csharp.CSharpFileTypeFactory"/>
+    <lang.parserDefinition implementationClass="com.csharp.CSharpParserDefinition"/>
+    <lang.syntaxHighlighterFactory language="cs"
+        implementationClass="com.csharp.highlighting.CSharpSyntaxHighlighterFactory"/>
+  </extensions>
+
+  <change-notes><![CDATA[
+        ]]>
+  </change-notes>
+
+  <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
+  <idea-version since-build="133"/> <!-- requires 13.x, 14.x, 15.x -->
+
+  <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products -->
+  <depends>com.intellij.modules.lang</depends>
+
+  <application-components>
+  </application-components>
+
+  <project-components>
+
+  </project-components>
+
+  <actions>
+  </actions>
+
+</idea-plugin>
+

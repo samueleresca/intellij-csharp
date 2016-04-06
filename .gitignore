@@ -5,6 +5,9 @@ ehthumbs.db
 # Folder config file
 Desktop.ini
 
+#NO TEMP CLASS
+*.class
+
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
@@ -27,6 +30,8 @@ $RECYCLE.BIN/
 .DS_Store
 .AppleDouble
 .LSOverride
+
+gen
 
 # Thumbnails
 ._*
