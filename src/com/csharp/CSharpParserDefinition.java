@@ -22,7 +22,7 @@ import static com.csharp.CSharpTypes.*;
 public class CSharpParserDefinition implements ParserDefinition{
   public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
 
-  public static final IFileElementType FILE = new IFileElementType(Language.<CSharpLanguage>findInstance(CSharpLanguage.class));
+  public static final IFileElementType FILE = new IFileElementType(Language.findInstance(CSharpLanguage.class));
   public static final TokenSet COMMENTS = TokenSet.create(COMMENT);
 
   public static final TokenSet STRING_DEFINITION = TokenSet.create(STRING_DEC);

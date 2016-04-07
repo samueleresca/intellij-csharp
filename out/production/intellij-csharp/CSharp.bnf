@@ -71,20 +71,20 @@
       COMMENT              = 'regexp://.*'
       DIGIT                = 'regexp:\d+(\.\d*)?'
       STRING               = "regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
-      IDENTIFIER                   = 'regexp:\p{Alpha}\w*'
+      ID                   = 'regexp:\p{Alpha}\w*'
     ]
 }
 
 
 File ::= ImportList NamespaceDec
 ImportList ::= ImportDec*
-ImportDec ::= using IDENTIFIER (IDENTIFIER | DOT)* SEMI
-NamespaceDec ::= namespace IDENTIFIER LBRACE ClassList RBRACE
+ImportDec ::= using ID (ID | DOT)* SEMI
+NamespaceDec ::= namespace ID LBRACE ClassList RBRACE
 ClassList ::= ClassDec*
-ClassDec ::= (AccessModifier? TypeModifier? Modules IDENTIFIER LBRACE MethodList RBRACE)
+ClassDec ::= (AccessModifier? TypeModifier? Modules ID LBRACE MethodList RBRACE)
 MethodList ::= (MethodDec | EnumDec | VarDec)*
-MethodDec ::= AccessModifier? TypeModifier* (Type | void) IDENTIFIER LPAREN (Type IDENTIFIER ','?)* RPAREN LBRACE Expr* RBRACE
-EnumDec ::= AccessModifier? enum IDENTIFIER LBRACE (IDENTIFIER ',')* IDENTIFIER* RBRACE
+MethodDec ::= AccessModifier? TypeModifier* (Type | void) ID LPAREN (Type ID ','?)* RPAREN LBRACE Expr* RBRACE
+EnumDec ::= AccessModifier? enum ID LBRACE (ID ',')* ID* RBRACE
 
 
 Expr ::= (VarDec | QualifiedClassDec | Arithmetic | AssignArithmetic | Switch | Using | Return | ForStatement |
@@ -96,19 +96,19 @@ VarDec ::= AccessModifier? TypeModifier? (BoolDec | ByteDec | CharDec | FloatDec
 
 GeneralDec ::= (PrimitiveTypes | GenericTypes)? (Property | CustomType+) ASSIGN Cast? (Arithmetic | Invocation |
                 TypeCheck | Property | MethodCall | Bool | null | DIGIT | CustomType) SEMI?
-NewTypeDec ::= ((PrimitiveTypes | CustomType) IDENTIFIER | Property) ASSIGN new? (PrimitiveTypes | GenericTypes | MethodCall
+NewTypeDec ::= ((PrimitiveTypes | CustomType) ID | Property) ASSIGN new? (PrimitiveTypes | GenericTypes | MethodCall
                  | QualifiedClassDec) SEMI?
 
-BoolDec ::= bool IDENTIFIER ASSIGN (true | false) SEMI {pin=2}
-ByteDec ::= byte IDENTIFIER ASSIGN (0x DIGIT+) SEMI {pin=2} // todo
-CharDec ::= char IDENTIFIER ASSIGN APOS ("[a-zA-Z0-9]" | (BACK ('u' | 'x') DIGIT{4})) APOS SEMI {pin=2}
-FloatDec ::= float IDENTIFIER ASSIGN DIGIT '.'? 'f' SEMI {pin=2}
-IntDec ::= u?(int | long | short) IDENTIFIER ASSIGN (Arithmetic | DIGIT) SEMI {pin=3}
-StringDec ::= 'string' IDENTIFIER ASSIGN STRING SEMI {pin=2}
-ListDec ::= GenericTypes IDENTIFIER ASSIGN ((new GenericTypes) | MethodCall) SEMI?
-DictionaryDec ::= GenericTypes IDENTIFIER ASSIGN (((new GenericTypes | TypeCheck)) | MethodCall | CustomType) SEMI
-QualifiedClassDec ::= 'System' ('.' (PrimitiveTypes | GenericTypes | IDENTIFIER))+ Argument SEMI {pin=2}
-CustomObjectDec ::= CustomType IDENTIFIER ASSIGN (Cast (IDENTIFIER | DIGIT | STRING) | new CustomType LPAREN (IDENTIFIER | DIGIT | STRING)
+BoolDec ::= bool ID ASSIGN (true | false) SEMI {pin=2}
+ByteDec ::= byte ID ASSIGN (0x DIGIT+) SEMI {pin=2} // todo
+CharDec ::= char ID ASSIGN APOS ("[a-zA-Z0-9]" | (BACK ('u' | 'x') DIGIT{4})) APOS SEMI {pin=2}
+FloatDec ::= float ID ASSIGN DIGIT '.'? 'f' SEMI {pin=2}
+IntDec ::= u?(int | long | short) ID ASSIGN (Arithmetic | DIGIT) SEMI {pin=3}
+StringDec ::= 'string' ID ASSIGN STRING SEMI {pin=2}
+ListDec ::= GenericTypes ID ASSIGN ((new GenericTypes) | MethodCall) SEMI?
+DictionaryDec ::= GenericTypes ID ASSIGN (((new GenericTypes | TypeCheck)) | MethodCall | CustomType) SEMI
+QualifiedClassDec ::= 'System' ('.' (PrimitiveTypes | GenericTypes | ID))+ Argument SEMI {pin=2}
+CustomObjectDec ::= CustomType ID ASSIGN (Cast (ID | DIGIT | STRING) | new CustomType LPAREN (ID | DIGIT | STRING)
                     RPAREN) SEMI {pin=2}
 
 Arithmetic ::= Cast? (MethodCall | Property| DIGIT | CustomType) (Operator Cast? (MethodCall | Property| DIGIT |
@@ -116,20 +116,20 @@ Arithmetic ::= Cast? (MethodCall | Property| DIGIT | CustomType) (Operator Cast?
 AssignArithmetic ::= CustomType AssignOperator (MethodCall | Property | CustomType | DIGIT | STRING)? SEMI?
 Comparison ::= (Expr | CustomType | DIGIT | STRING) (CompareOperator (Expr | CustomType | DIGIT | STRING))+
 
-Parameter ::= IDENTIFIER LPAREN ((PrimitiveTypes | CustomType) IDENTIFIER ','*)* RPAREN
+Parameter ::= ID LPAREN ((PrimitiveTypes | CustomType) ID ','*)* RPAREN
 Argument ::= LPAREN (out? Cast? (QualifiedClassDec | Invocation | Arithmetic| MethodCall | Property | DIGIT | STRING |
              null | Bool | TypeCheck | CustomType) ','?)* RPAREN
 Invocation ::= new (QualifiedClassDec | PrimitiveTypes | GenericTypes | CustomType) Argument?
 
-MethodCall ::= (QualifiedClassDec | IDENTIFIER) (('.'(QualifiedClassDec | CustomType))? Argument)+ SEMI?
-Property ::= (MethodCall | CustomType) ('.' IDENTIFIER)+ Array? SEMI?
+MethodCall ::= (QualifiedClassDec | ID) (('.'(QualifiedClassDec | CustomType))? Argument)+ SEMI?
+Property ::= (MethodCall | CustomType) ('.' ID)+ Array? SEMI?
 
 ForStatement ::= for LPAREN IntDec Arithmetic SEMI? AssignArithmetic RPAREN LBRACE? Expr* RBRACE? {pin=10}
-ForEachStatement ::= foreach LPAREN (PrimitiveTypes | CustomType) IDENTIFIER in (Property | MethodCall | CustomType) RPAREN LBRACE? Expr*
+ForEachStatement ::= foreach LPAREN (PrimitiveTypes | CustomType) ID in (Property | MethodCall | CustomType) RPAREN LBRACE? Expr*
                      RBRACE? {pin=8}
 Switch ::= switch LPAREN (MethodCall | Property | CustomType) RPAREN LBRACE (case LPAREN? (DIGIT | STRING |
            CustomType) RPAREN? ':' Expr*)* (default ':' Expr*)? RBRACE
-Using ::= using LPAREN CustomType IDENTIFIER ASSIGN (Invocation | MethodCall | Property) RPAREN LBRACE Expr* RBRACE {pin=9}
+Using ::= using LPAREN CustomType ID ASSIGN (Invocation | MethodCall | Property) RPAREN LBRACE Expr* RBRACE {pin=9}
 Return ::= return (Expr | Bool | CustomType) SEMI?
 IfStatement ::= if LPAREN (Comparison | TypeCheck | CustomType) RPAREN LBRACE? Expr* RBRACE? ElseIfStatement*
                 ElseStatement?
@@ -140,13 +140,13 @@ FlowStatement ::= (break | continue) SEMI
 
 Exception ::= throw new MethodCall
 
-TypeCheck ::= IDENTIFIER (is | as | instanceof) (QualifiedClassDec | PrimitiveTypes | GenericTypes | CustomType) // todo name +
+TypeCheck ::= ID (is | as | instanceof) (QualifiedClassDec | PrimitiveTypes | GenericTypes | CustomType) // todo name +
               // remove from expr?
 
 
 private Cast ::= LPAREN (PrimitiveTypes | GenericTypes | CustomType) RPAREN
 
-private Array ::= LBRACK (Arithmetic | IDENTIFIER | DIGIT | STRING)? RBRACK
+private Array ::= LBRACK (Arithmetic | ID | DIGIT | STRING)? RBRACK
 
 Type ::= PrimitiveTypes | GenericTypes | CustomType
 Value ::= Bool | STRING | DIGIT | null
@@ -157,7 +157,7 @@ Value ::= Bool | STRING | DIGIT | null
 PrimitiveTypes ::= (bool | byte | sbyte | char | decimal | double | float | int | uint | long | ulong | object | short |
            ushort | var | 'string') Array?    // todo
 GenericTypes ::= (List | Dictionary) '<' (','? (PrimitiveTypes | GenericTypes | CustomType))+ '>' Argument?
-private CustomType ::= (IDENTIFIER Array?) | null
+private CustomType ::= (ID Array?) | null
 
 Bool ::= true | false
 ValueClasses ::= (struct | enum)
@@ -165,7 +165,7 @@ Modules ::= (class | interface | delegate)
 
 
 PreprocessorDec ::= '#'(if | else | elif | endif | define | undef | warning | error | line | region |
-                        endregion | pragma | pragma warning | pragma checksum) IDENTIFIER*
+                        endregion | pragma | pragma warning | pragma checksum) ID*
 AccessModifier ::= (public | private | protected | internal)
 TypeModifier ::= (abstract | async | const | event | extern | new | override | partial | readonly | sealed |
                   static | unsafe | virtual | volatile) // todo split into method modifiers w/ rules
@@ -180,3 +180,8 @@ AssignOperator ::= PLUS_PLUS | PLUS_ASSIGN | MINUS_MINUS | MINUS_ASSIGN | MUL_AS
                    REMAINDER_ASSIGN | BIT_OR_ASSIGN | BIT_CLEAR_ASSIGN | BIT_AND_ASSIGN | BIT_XOR_ASSIGN |
                    SHIFT_LEFT_ASSIGN | SHIFT_RIGHT_ASSIGN
 CompareOperator ::= EQ | NOT_EQ | LESS | LESS_OR_EQUAL | GREATER | GREATER_OR_EQUAL | COND_OR | COND_AND
+
+
+/*CUSTOM*/
+
+MetaAttribute ::= LBRACK ( IDENTIFIER ) RBRACK

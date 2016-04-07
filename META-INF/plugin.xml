@@ -18,8 +18,10 @@
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
     <fileTypeFactory  implementation="com.csharp.CSharpFileTypeFactory"/>
-    <lang.parserDefinition language="cs" implementationClass="com.csharp.CSharpParserDefinition"/>
-    <lang.syntaxHighlighterFactory language="cs"
+    <lang.parserDefinition language="" implementationClass="com.csharp.CSharpParserDefinition"/>
+      <annotator language="cs" implementationClass="com.csharp.highlighting.CSharpHighlightingAnnotator"/>
+
+      <lang.syntaxHighlighterFactory language="cs"
         implementationClass="com.csharp.highlighting.CSharpSyntaxHighlighterFactory"/>
   </extensions>
 
