@@ -36,21 +36,21 @@ public class CSharpSyntaxHighlighter extends SyntaxHighlighterBase {
   private static final Map<IElementType, TextAttributesKey> ATTRIBUTES = new HashMap<IElementType, TextAttributesKey>();
 
   static {
-    fillMap(ATTRIBUTES, PARENTHESES, CSharpTypes.OP_BRACES_LEFT, CSharpTypes.OP_BRACES_RIGHT);
-    fillMap(ATTRIBUTES, BRACES, CSharpTypes.OP_BRACES_LEFT, CSharpTypes.OP_BRACES_RIGHT);
-    fillMap(ATTRIBUTES, BRACKETS, CSharpTypes.OP_BRACKET_LEFT, CSharpTypes.OP_BRACKET_RIGHT);
+    fillMap(ATTRIBUTES, PARENTHESES, CSharpTypes.LBRACE, CSharpTypes.RBRACE);
+    fillMap(ATTRIBUTES, BRACES, CSharpTypes.LBRACE, CSharpTypes.RBRACE);
+    fillMap(ATTRIBUTES, BRACKETS, CSharpTypes.LBRACE, CSharpTypes.RBRACE);
     fillMap(ATTRIBUTES, BAD_CHARACTER, TokenType.BAD_CHARACTER);
 
-    fillMap(ATTRIBUTES, IDENTIFIER, CSharpTypes.ID);
+    fillMap(ATTRIBUTES, IDENTIFIER, CSharpTypes.IDENTIFIER);
 
-    fillMap(ATTRIBUTES, BLOCK_COMMENT, CSharpTypes.BLOCK_COMMENT);
+    fillMap(ATTRIBUTES, BLOCK_COMMENT, CSharpTypes.COMMENT);
 
-    fillMap(ATTRIBUTES, DOUBLE_QUOTED_STRING, CSharpTypes.DOUBLE_QUOTED_STRING);
+    fillMap(ATTRIBUTES, DOUBLE_QUOTED_STRING, CSharpTypes.STRING);
 
 
     fillMap(ATTRIBUTES, DOT, CSharpTypes.DOT, CSharpTypes.DOT);
-    fillMap(ATTRIBUTES, COLON, CSharpTypes.OP_COLON);
-    fillMap(ATTRIBUTES, COMMA, CSharpTypes.COMMA);
+    fillMap(ATTRIBUTES, COLON, CSharpTypes.COLON);
+
     fillMap(ATTRIBUTES, CSharpParserDefinition.OPERATORS, OPERATOR);
     fillMap(ATTRIBUTES, CSharpParserDefinition.KEYWORDS, KEYWORD);
     fillMap(ATTRIBUTES, CSharpParserDefinition.NUMBERS, NUMBER);

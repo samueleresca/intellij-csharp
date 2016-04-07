@@ -23,16 +23,16 @@ public class CSharpParserDefinition implements ParserDefinition{
   public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
 
   public static final IFileElementType FILE = new IFileElementType(Language.<CSharpLanguage>findInstance(CSharpLanguage.class));
-  public static final TokenSet COMMENTS = TokenSet.create(BLOCK_COMMENT, LINE_COMMENT);
+  public static final TokenSet COMMENTS = TokenSet.create(COMMENT);
 
-  public static final TokenSet STRING_DEFINITION = TokenSet.create(DOUBLE_QUOTED_STRING);
-  public static final TokenSet NUMBERS = TokenSet.create(KW_INT, KW_FLOAT, KW_DOUBLE); // todo: HEX, OCT,
+  public static final TokenSet STRING_DEFINITION = TokenSet.create(STRING_DEC);
+  public static final TokenSet NUMBERS = TokenSet.create(INT, FLOAT, DOUBLE); // todo: HEX, OCT,
   public static final TokenSet KEYWORDS = TokenSet.create(
-    KW_USING, KW_BREAK, KW_CASE,  KW_CONST, KW_CONTINUE, KW_DEFAULT, KW_ELSE,  KW_FOR, KW_GOTO, KW_IF,
-    INTERFACE,   KW_RETURN,  KW_STRUCT, KW_SWITCH, KW_PUBLIC, KW_ABSTRACT, KW_PRIVATE, KW_PROTECTED, KW_OVERRIDE, KW_VOID, KW_PROTECTED,
-    KW_THIS, KW_ABSTRACT, KW_STATIC, KW_STRUCT, KW_CLASS, KW_NAMESPACE);
+    USING, BREAK, CASE,  CONST, CONTINUE, DEFAULT, ELSE,  FOR, GOTO, IF,
+    INTERFACE,   RETURN,  STRUCT, SWITCH, PUBLIC, ABSTRACT, PRIVATE, PROTECTED, OVERRIDE, VOID, PROTECTED,
+    THIS, ABSTRACT, STATIC, STRUCT, CLASS, NAMESPACE);
   public static final TokenSet OPERATORS = TokenSet.create(
-    OP_EQ, OP_EQ, OP_NOT_EQ, OP_NOT, OP_PLUS_PLUS, OP_PLUS_EQ, OP_PLUS, OP_MINUS_MINUS, OP_MINUS_EQ, OP_MINUS);
+    EQ, EQ, NOT_EQ, NOT, PLUS_PLUS,  PLUS, MINUS_MINUS, MINUS);
 
 
   @NotNull
