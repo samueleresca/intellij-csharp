@@ -16,11 +16,30 @@
 
 package com.csharp.highlighting;
 
+import com.csharp.psi.CSharpClassDec;
+import com.csharp.psi.CSharpExpr;
 import com.csharp.psi.CSharpType;
+import com.csharp.psi.CSharpTypeModifier;
+import com.intellij.lang.ASTNode;
+import com.intellij.lang.Language;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
-import com.intellij.psi.PsiElement;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.Iconable;
+import com.intellij.openapi.util.Key;
+import com.intellij.openapi.util.TextRange;
+import com.intellij.psi.*;
+import com.intellij.psi.scope.PsiScopeProcessor;
+import com.intellij.psi.search.GlobalSearchScope;
+import com.intellij.psi.search.SearchScope;
+import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.tree.TokenSet;
+import com.intellij.util.IncorrectOperationException;
+import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import javax.swing.*;
 
 public class CSharpHighlightingAnnotator implements Annotator {
 
@@ -29,9 +48,10 @@ public class CSharpHighlightingAnnotator implements Annotator {
     public void annotate(@NotNull PsiElement o, @NotNull AnnotationHolder holder) {
         if (!o.isValid()) return;
 
-        if (o instanceof CSharpType) {
 
-            o.getNode();
+        if (o instanceof PsiLiteralExpression) {
+            PsiLiteralExpression literalExpression = (PsiLiteralExpression) o;
+           literalExpression.getNode();
         }
     }
 }
